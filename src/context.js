@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-
 const Context = React.createContext();
 
-const reducer = (state, action) => { // action is an object that will have a type, type is evaluate to figure out what we will be doing
+const reducer = (state, action) => { // action is an object that will have a type, type is evaluated to figure out what we will be doing
     switch(action.type){
         case 'DELETE_CONTACT':
             return {
                 ...state, 
                 contacts: state.contacts.filter(contact => contact.id !== action.payload)
-            }
+            };
+        case 'ADD_CONTACT':
+            return {
+                ...state, 
+                contacts: [action.payload, ...state.contacts] // payload includes id, name,email,phone
+            };
         default: 
             return state;
     }

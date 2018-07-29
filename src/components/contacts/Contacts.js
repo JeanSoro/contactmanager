@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Contact from './Contact';
-import { Consumer } from '../context';
+import { Consumer } from '../../context';
 
 class Contacts extends Component {
   
@@ -9,7 +9,7 @@ class Contacts extends Component {
     return (
         <Consumer>
             {value => {
-                const { contacts } = value;
+                const { contacts } = value; // comes from context, this is essentially the state
                 return (
                     <React.Fragment>
                         {contacts.map((contact, id) =>(
@@ -19,8 +19,7 @@ class Contacts extends Component {
                 )
             }}
         </Consumer>
-    )
-    
+    ) 
   }
 }
 
