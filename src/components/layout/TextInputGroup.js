@@ -21,7 +21,6 @@ const TextInputGroup = ({ error, label, name, value, placeholder, type, onChange
 };
 
 
-
 TextInputGroup.propTypes = {
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,

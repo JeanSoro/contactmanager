@@ -50,6 +50,8 @@ import uuid from 'uuid';
             phone: '',
             errors: {}
         });
+
+        this.props.history.push('/');
     };
 
     onChange = (e) => {
