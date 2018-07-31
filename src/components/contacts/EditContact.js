@@ -3,16 +3,27 @@ import { Consumer } from '../../context';
 import TextInputGroup from '../layout/TextInputGroup';
 import axios from 'axios';
 
- class AddContact extends Component {
+ class EditContact extends Component {
 
     state = {
         name: '',
         email: '',
         phone: '',
-        errors: {
-            
-        }
+        errors: {}
     };
+
+    async componentDidMount() {
+        const { id } = this.props.match.params;
+
+        const response = await axios.get(`http://jsonplaceholder.typicode.com/users/${id}`);
+        const fetchedContacts = response.data;
+
+        this.setState({
+            name: fetchedContacts.name,
+            email: fetchedContacts.email,
+            phone: fetchedContacts.phone
+        })
+    }
 
     onSubmit = async (dispatch, e) => {
         e.preventDefault();
@@ -34,15 +45,17 @@ import axios from 'axios';
             return;
         }
 
-        const newContact = {
+        const updateContactList = {
             name,
             email,
             phone
-        };
+        }
 
-        const response = await axios.post('http://jsonplaceholder.typicode.com/users', newContact);
-            
-        dispatch({type: 'ADD_CONTACT', payload: response.data})
+        const { id } = this.props.match.params;
+        const response = await axios.put(`http://jsonplaceholder.typicode.com/users/${id}`, updateContactList);
+
+        dispatch({type: 'UPDATE_CONTACT', payload: response.data});
+
 
 
         // Clear state
@@ -72,7 +85,7 @@ import axios from 'axios';
                   const { dispatch } = value;
                   return (
                     <div className="card mb-3">
-                        <div className="card-header">Add Contact</div>
+                        <div className="card-header">Edit Contact</div>
                             <div className="card-body">
                                 <form onSubmit={this.onSubmit.bind(this, dispatch)}>
                                     <TextInputGroup 
@@ -101,7 +114,7 @@ import axios from 'axios';
                                        error={errors.phone}
                                     />
                                     <input type="submit" 
-                                            value="Add Contact" 
+                                            value="Update Contact" 
                                             className="btn btn-light btn-block"/>
                                 </form>
                         </div>
@@ -113,4 +126,4 @@ import axios from 'axios';
   }
 }
 
-export default AddContact;
+export default EditContact;
