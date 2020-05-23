@@ -20,17 +20,17 @@ class AddContact extends Component {
         if (name === '') {
             this.setState({ errors: { name: 'Name is required' } });
             return;
-        }
+        };
 
         if (email === '') {
             this.setState({ errors: { email: 'Email is required' } });
             return;
-        }
+        };
 
         if (phone === '') {
             this.setState({ errors: { phone: 'Phone is required' } });
             return;
-        }
+        };
 
         const newContact = {
             name,
@@ -58,7 +58,7 @@ class AddContact extends Component {
         this.setState({
             [e.target.name]: e.target.value
         });
-    }
+    };
 
 
     render() {
